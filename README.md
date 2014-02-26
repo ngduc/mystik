@@ -1,9 +1,9 @@
 Mystik
 ======
 
-Generic Javascript DAO (Data Access Objects) classes for database systems including NoSQL databases, NodeJS support and REST API web service handling
+Generic Javascript DAO (Data Access Objects) classes for database systems including NoSQL databases, NodeJS support and REST API web service handling.
 
-NOTE: This is a work in progress. All working features are covered in unit tests. Please help implement engines for other databases or fix defects. Thanks.
+**NOTE:** This is a work in progress. All working features are covered in unit tests. Please help implement engines for other databases or fix defects. Thanks.
 
 ## Install
 

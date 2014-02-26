@@ -91,6 +91,13 @@ describe('Cassandra Engine', function () {
         })
     });
 
+    it('should FIND ALL', function (done) {
+        Users.findAll(function(err, res) {
+            expect(res.length).toBe(3);
+            done();
+        })
+    });
+
     it('should FIND using SQL', function (done) {
         Users.findWhere('uid = ? AND zipcode = ?', ['_uid01', 94040], function(err, res) {
             expect(res.length).toBe(1);
