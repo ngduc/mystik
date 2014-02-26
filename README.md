@@ -10,13 +10,13 @@ NOTE: This is a work in progress. All working features are covered in unit tests
 **NOTE:** You need to have NodeJS, Database (Cassandra, etc.) installed and running.
 
 ```sh
-  $ git clone https://github.com/ngduc/mystik.git
-  $ npm install
+    $ git clone https://github.com/ngduc/mystik.git
+    $ npm install
 ```
 
 ## Usage
 
-This is a very basic example:
+This is a very basic example. Prepare DB connection:
 
 ```
     var MkCassandraEngine = require('lib/mkCassandraEngine.js');
@@ -24,33 +24,45 @@ This is a very basic example:
 
     var engine = new MkCassandraEngine(dbClient);
     var Users = new MkTable(engine, 'users');
+```
 
+Do some query and updating data on [users] table:
+
+```
     Users.find({ zipcode: 94040 }, function(err, res) {
-        // result (res) is an array of rows in json
+        // result (res) is an array of rows in JSON.
+    });
+
+    Users.findWhere('uid = ? AND zipcode = ?', ['_uid01', 94040], function(err, res) {
+        // query data using SQL where clause.
     })
 
     Users.update({age: 21, zipcode: 92020}, {uid: '_uid00'}, function(err, res) {
         // update user which has uid = '_uid00'
-    })
+    });
 ```
+
+See more interface methods in mkTable.js
 
 ## Running Tests
 
-```sh
-  $ jasmine-node ./test/
+Make sure you have Database installed and running. Current unit tests for Cassandra require Cassandra running and 'test' keyspace created.
 
-  # to stop the jasmine-node process when it is finished, use this:
-  $ jasmine-node --forceexit ./test/
+```sh
+    $ jasmine-node ./test/
+
+    # to stop the jasmine-node process when it is finished, use this:
+    $ jasmine-node --forceexit ./test/
 ```
 
 ## Dependencies
 
-1. express
-2. node requirejs
-3. amdefine
-4. async
-5. node-cassandra-cql
-6. jasmine-node
+    - express
+    - node requirejs
+    - amdefine
+    - node-cassandra-cql - if Cassandra is used.
+    - jasmine-node - for unit testing.
+    - async - for unit testing.
 
 ## License
 
