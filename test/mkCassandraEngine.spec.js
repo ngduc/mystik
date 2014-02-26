@@ -1,14 +1,13 @@
 // run tests:    jasmine-node --forceexit ./test/
 
-var projectPath = __dirname+'/../';
 var async = require('async');
 
 var cql = require('node-cassandra-cql');
 var dbClient = new cql.Client({hosts: ['localhost:9042'], keyspace: 'test'});
 
-var MkUtils = require(projectPath+'lib/mkUtils.js');
-var MkCassandraEngine = require(projectPath+'lib/mkCassandraEngine.js');
-var MkTable = require(projectPath+'lib/mkTable.js');
+var MkUtils = require('../lib/mkUtils.js');
+var MkCassandraEngine = require('../lib/mkCassandraEngine.js');
+var MkTable = require('../lib/mkTable.js');
 
 var beforeAll = function(fn) { it('[beforeAll]', fn)}, afterAll = function(fn) { it('[afterAll]', fn) }; // goo.gl/IhV41V
 
