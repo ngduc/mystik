@@ -5,6 +5,7 @@
     "node-cassandra-cql": "~0.4.3",
     "express": "~3.4.8",
     "requirejs": "~2.1.11",
+    "amdefine": "~0.1.0",
     "async": "~0.2.10",
     "jasmine-node": "~1.13.1"
   }
