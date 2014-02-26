@@ -8,5 +8,8 @@
     "amdefine": "~0.1.0",
     "async": "~0.2.10",
     "jasmine-node": "~1.13.1"
+  },
+  "scripts": {
+    "test": "jasmine-node --forceexit ./test/"
   }
 }
