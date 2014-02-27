@@ -8,7 +8,7 @@ before_install:
   - sudo sh -c "echo 'JVM_OPTS=\"\${JVM_OPTS} -Djava.net.preferIPv4Stack=false\"' >> /usr/local/cassandra/conf/cassandra-env.sh"
   - sudo service cassandra start
   - sleep 10
-  - echo "drop keyspace test; create keyspace test;" > ./testsetup.cql
+  - printf "drop keyspace test; \n create keyspace test; \n" > ./testsetup.cql
   - cassandra-cli -h localhost -p 9160 -f ./testsetup.cql
 env:
   - CASSANDRA_HOST=127.0.0.1
