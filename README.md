@@ -4,6 +4,8 @@ Mystik
 
 Generic Javascript DAO (Data Access Objects) classes for database systems including NoSQL databases, NodeJS support and REST API web service handling.
 
+The purpose of this project is to allow using the same query syntax on client or server side to get data. Data could come from database or APIs in JSON format.
+
 **NOTE:** This is a work in progress. All working features are covered in unit tests. Please help implement engines for other databases or fix defects. Thanks.
 
 ## Install
@@ -17,7 +19,7 @@ Generic Javascript DAO (Data Access Objects) classes for database systems includ
 
 ## Usage
 
-This is a very basic example. Prepare DB connection:
+This is a very basic NodeJS example. Prepare DB connection:
 
 ```
     var MkCassandraEngine = require('lib/mkCassandraEngine.js');
@@ -43,7 +45,13 @@ Do some query and updating data on [users] table:
     });
 ```
 
-See more interface methods in mkTable.js
+See more interface methods in [mkTable.js](app/lib/mkTable.js)
+
+### Client Side
+
+From client side, you will need to use MkRestEngine to make call to "APIs" (NodeJS) which in turn will query database and return JSON data.
+
+See [this example](app/index.html)
 
 ## Running Tests
 

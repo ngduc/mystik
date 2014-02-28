@@ -51,6 +51,9 @@ define(['./mkUtils'], function(Utils) {
                     if (callback) callback(err, one);
                 });
             },
+            findAll: function(table, callback) {
+                this.findWhere(table, '', [], callback);
+            },
             insert: function(table, obj, callback) {
                 var cols = [], qmarks = [], vals = [];
                 for (var i in obj) {

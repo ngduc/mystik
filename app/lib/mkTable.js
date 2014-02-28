@@ -4,14 +4,19 @@ define([], function() {
 
     // TODO:
     // - handle Error/Exceptions
-    // - create RestEngine
 
-    var MkTable = function(engine, table) {
+    var MkTable = function(engine, table, validator) {
         var _engine = engine,
-            _table = table;
+            _table = table,
+            _validate = validator;
 
         return {
             find: function(params, callback) {
+                if (_validate) {
+                    var errObj = _validate.find(params);
+                    if (callback) callback(errObj, null);
+                    return;
+                }
                 return _engine.find(_table, params, callback);
             },
             findOne: function(params, callback) {
@@ -24,7 +29,7 @@ define([], function() {
                 return _engine.findOneWhere(_table, sql, params, callback);
             },
             findAll: function(callback) {
-                return _engine.findWhere(_table, '', [], callback);
+                return _engine.findAll(_table, callback);
             },
             insert: function(obj, callback) {
                 return _engine.insert(_table, obj, callback);
