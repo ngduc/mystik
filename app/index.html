@@ -1,10 +1,12 @@
 <html>
 <body>
 
+<button id="btnFindAll">FindAll</button>
 <button id="btnFindOne">Find user</button>
+<button id="btnUpdate">Update</button>
 <p/>
 
-<div id="lblAction">FindAll users:</div>
+<div id="lblAction"></div>
 <hr>
 <pre id="result"></pre>
 
@@ -18,18 +20,33 @@
                     var restEng = new MkRestEngine('v1', $.ajax);
                     var Users = new MkTable(restEng, 'users');
 
-                    Users.findAll(function (err, res) {
-                        $('#result').text(JSON.stringify(res, undefined, 2));
-                    });
+                    $('#btnFindAll').on('click', function () {
+                        $('#lblAction').text('FindAll users:');
+                        Users.findAll(function (err, res) {
+                            showResult(res);
+                        });
+                    })
 
                     $('#btnFindOne').on('click', function () {
                         $('#lblAction').text('Find user:');
-                        Users.find({ uid: '_uid01' }, function (err, res) {
-                            $('#result').text(JSON.stringify(res, undefined, 2));
+                        Users.find({uid: '_uid01'}, function (err, res) {
+                            showResult(res);
+                        });
+                    })
+
+                    $('#btnUpdate').on('click', function () {
+                        $('#lblAction').text('Update with random password:');
+                        var randomPsw = Math.random().toString(36).replace(/[^a-z]+/g, '');
+                        Users.update({uid: '_uid01'}, {password: randomPsw}, function (err, res) {
+                            showResult(res);
                         });
                     })
                 });
-    })
+    });
+
+    function showResult(jsonData) {
+        $('#result').text(JSON.stringify(jsonData, undefined, 2));
+    }
 </script>
 </body>
 </html>

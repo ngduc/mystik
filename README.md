@@ -55,7 +55,15 @@ See [this example](app/index.html)
 
 ## Running Tests
 
-Make sure you have Database installed and running. Current unit tests for Cassandra require Cassandra running and 'test' keyspace created.
+Make sure you have Database installed and running. Current unit tests for Cassandra require Cassandra running and 'test' keyspace created:
+
+```sh
+    $ cd cassandra/bin
+    $ printf "CREATE KEYSPACE test; \n" > ./testsetup.cql
+    $ ./cassandra-cli -h localhost -p 9160 -f ./testsetup.cql
+```
+
+To run unit tests:
 
 ```sh
     $ jasmine-node ./test/

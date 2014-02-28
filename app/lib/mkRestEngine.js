@@ -8,18 +8,21 @@ define([], function(Utils) {
             _ajax = ajaxFn;
 
         return {
-            exec: function(table, type, params, callback) {
-                var url = _ver + '/' + table + '?' + $.param(params);
-                _ajax({ type: type, url: url, data: {} })
+            exec: function(table, type, urlParams, data, callback) {
+                var url = _ver + '/' + table + '?' + $.param(urlParams);
+                _ajax({ type: type, url: url, data: data })
                     .done(function(res) {
                         if (callback) callback(null, res);
                     });
             },
             find: function(table, params, callback) {
-                this.exec(table, 'GET', params, callback);
+                this.exec(table, 'GET', params, {}, callback);
             },
             findAll: function(table, callback) {
-                this.exec(table, 'GET', {}, callback);
+                this.exec(table, 'GET', {}, {}, callback);
+            },
+            update: function(table, obj, params, callback) {
+                this.exec(table, 'POST', obj, params, callback);
             }
         }
     }
