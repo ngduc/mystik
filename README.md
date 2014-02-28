@@ -2,9 +2,9 @@ Mystik
 ======
 [![Build Status](https://travis-ci.org/ngduc/mystik.png?branch=master)](https://travis-ci.org/ngduc/mystik)
 
-Generic Javascript DAO (Data Access Objects) classes for database systems including NoSQL databases, NodeJS support and REST API web service handling.
+Mystik (MkTable) is a generic Javascript DAO (Data Access Objects) for database systems including NoSQL databases, NodeJS support and REST API web service handling.
 
-The purpose of this project is to allow using the same query syntax on client or server side to get data. Data could come from database or APIs in JSON format.
+It also allows using the same query syntax on client and server side to get data. Data could come from database or APIs in JSON format.
 
 **NOTE:** This is a work in progress. All working features are covered in unit tests. Please help implement engines for other databases or fix defects. Thanks.
 

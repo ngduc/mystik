@@ -119,14 +119,8 @@ describe('Cassandra Engine', function () {
     });
 
     it('should DELETE 1 row', function (done) {
-        Users.delete({ uid: '_uid01'}, function(err, res) {
-            expectUserCount(2, done);
-        })
-    });
-
-    it('should DELETE 1 more row', function (done) {
         Users.delete({ uid: '_uid02'}, function(err, res) {
-            expectUserCount(1, done);
+            expectUserCount(2, done);
         })
     });
 });

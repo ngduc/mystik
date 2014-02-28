@@ -16,13 +16,19 @@ var MkTable = require('./lib/mkTable.js');
 app.get('/', function (req, res) {
 });
 
-app.get('/users/findAll', function (req, out) {
+app.get('/v1/users', function (req, out) {
     var engine = new MkCassandraEngine(dbClient);
     var Users = new MkTable(engine, 'users');
 
-    Users.findAll(function (err, res) {
-        out.send(res);
-    });
+    if (Object.keys(req.query).length === 0) {
+        Users.findAll(function (err, res) {
+            out.send(res);
+        });
+    } else {
+        Users.find(req.query, function (err, res) {
+            out.send(res);
+        });
+    }
 });
 
 app.listen(3000);
