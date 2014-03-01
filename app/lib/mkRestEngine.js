@@ -10,7 +10,11 @@ define([], function (Utils) {
         return {
             exec: function (table, type, urlParams, data, callback) {
                 var url = _ver + '/' + table + '?' + $.param(urlParams);
-                _ajax({ type: type, url: url, data: data })
+                var ajaxObj = { type: type, url: url, data: JSON.stringify(data), contentType: 'application/json' };
+                if (ajaxObj.data === '{}') {
+                    ajaxObj.data = '';
+                }
+                _ajax(ajaxObj)
                     .done(function (res) {
                         if (callback) callback(null, res);
                     });

@@ -5,6 +5,7 @@
 <button id="btnFindOne">Find user</button>
 <button id="btnUpdate">Update</button>
 <button id="btnDelete">Delete</button>
+<button id="btnInsert">Insert</button>
 <p/>
 
 <div id="lblAction"></div>
@@ -40,6 +41,17 @@
                     $('#btnDelete').on('click', function () {
                         $('#lblAction').text('Delete a user:');
                         Users.delete({uid: '_uid01'}, showResult);
+                    });
+
+                    $('#btnInsert').on('click', function () {
+                        $('#lblAction').text('Insert a user:');
+                        Users.insert({
+                            uid: Math.random().toString(36).replace(/[^a-z]+/g, ''),
+                            username: Math.random().toString(36).replace(/[^a-z]+/g, ''),
+                            password: '11',
+                            zipcode: 94040,
+                            age: 40
+                        }, showResult);
                     });
                 });
     });

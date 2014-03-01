@@ -19,8 +19,7 @@ app.get('/', function (req, res) {
 });
 
 // Demonstrate REST API:
-// GET: query data
-// PUT: update data
+// GET: query data - POST: insert data - PUT: update data - DELETE: delete data
 
 app.get('/v1/users', function (req, out) {
     if (Object.keys(req.query).length === 0) {
@@ -32,6 +31,12 @@ app.get('/v1/users', function (req, out) {
             out.send(res);
         });
     }
+});
+
+app.post('/v1/users', function (req, out) {
+    Users.insert(req.body, function (err, res) {
+        out.send(res);
+    });
 });
 
 app.put('/v1/users', function (req, out) {
