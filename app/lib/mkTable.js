@@ -1,4 +1,4 @@
-if (typeof define !== 'function') { var define = require('amdefine')(module) }
+if (typeof define !== 'function') { var define = require('amdefine')(module); }
 
 define([], function() {
 
@@ -43,8 +43,8 @@ define([], function() {
             delete: function(params, callback) {
                 return _engine.delete(_table, params, callback);
             }
-        }
-    }
+        };
+    };
 
     return MkTable;
-})
+});

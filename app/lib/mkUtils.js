@@ -1,4 +1,5 @@
-if (typeof define !== 'function') { var define = require('amdefine')(module) }
+/* jshint -W030 */
+if (typeof define !== 'function') { var define = require('amdefine')(module); }
 
 define([], function() {
     // mongo2sql, source: https://gist.github.com/jankuca/761760
@@ -123,6 +124,7 @@ define([], function() {
         //...var chunks = [ '[' + key + ']' ];
         var chunks = [ key ];
         var params = [];
+        var qmarks = [];
 
         switch (modifier) {
             case 'gt':
@@ -149,7 +151,7 @@ define([], function() {
                 if (!value.length) {
                     throw 'Invalid state: No items for the IN operator';
                 }
-                var qmarks = [];
+                qmarks = [];
                 for (var i in value) qmarks.push('?');
                 chunks.push('IN (', qmarks.join(', '), ')');
                 params = params.concat(value);
@@ -159,8 +161,8 @@ define([], function() {
                 /*if (!value[modifier].length) {
                     throw 'Invalid state: No items for the NOT IN operator';
                 }*/
-                var qmarks = [];
-                for (var i in value) qmarks.push('?');
+                qmarks = [];
+                for (var j in value) qmarks.push('?');
                 chunks.push('NOT IN (', qmarks.join(', '), ')');
                 params = params.concat(value);
                 break;
@@ -212,4 +214,4 @@ define([], function() {
             });
         }
     };
-})
+});

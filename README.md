@@ -6,7 +6,7 @@ Mystik (MkTable) is a generic Javascript DAO (Data Access Objects) for database 
 
 It also allows using the same query syntax on client and server side to get data. Data could come from database or APIs in JSON format.
 
-**NOTE:** This is a work in progress. All working features are covered in unit tests. Please help implement engines for other databases or fix defects. Thanks.
+**NOTE:** All working features are covered in unit tests. Please help implement engines for other databases or fix defects. Thanks.
 
 ## Install
 
@@ -15,6 +15,14 @@ It also allows using the same query syntax on client and server side to get data
 ```sh
     $ git clone https://github.com/ngduc/mystik.git
     $ npm install
+```
+
+Make sure you have Database installed and running. The example code requires Cassandra running and 'test' keyspace created:
+
+```sh
+    $ cd cassandra/bin
+    $ printf "CREATE KEYSPACE test; \n" > ./testsetup.cql
+    $ ./cassandra-cli -h localhost -p 9160 -f ./testsetup.cql
 ```
 
 ## Usage
@@ -55,15 +63,7 @@ See [this example](app/index.html)
 
 ## Running Tests
 
-Make sure you have Database installed and running. Current unit tests for Cassandra require Cassandra running and 'test' keyspace created:
-
-```sh
-    $ cd cassandra/bin
-    $ printf "CREATE KEYSPACE test; \n" > ./testsetup.cql
-    $ ./cassandra-cli -h localhost -p 9160 -f ./testsetup.cql
-```
-
-To run unit tests:
+Make sure you have Database installed and running. To run unit tests:
 
 ```sh
     $ jasmine-node ./test/
