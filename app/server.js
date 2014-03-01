@@ -42,4 +42,10 @@ app.put('/v1/users', function (req, out) {
     });
 });
 
+app.delete('/v1/users', function (req, out) {
+    Users.delete(req.query, function (err, res) {
+        out.send(res);
+    });
+});
+
 app.listen(3000);

@@ -15,14 +15,20 @@ define([], function (Utils) {
                         if (callback) callback(null, res);
                     });
             },
-            find: function (table, params, callback) {
-                this.exec(table, 'GET', params, {}, callback);
+            find: function (table, urlParams, callback) {
+                this.exec(table, 'GET', urlParams, {}, callback);
             },
             findAll: function (table, callback) {
                 this.exec(table, 'GET', {}, {}, callback);
             },
-            update: function (table, obj, params, callback) {
-                this.exec(table, 'PUT', obj, params, callback);
+            insert: function(table, obj, callback) {
+                this.exec(table, 'POST', {}, obj, callback);
+            },
+            update: function (table, urlParams, params, callback) {
+                this.exec(table, 'PUT', urlParams, params, callback);
+            },
+            delete: function(table, urlParams, callback) {
+                this.exec(table, 'DELETE', urlParams, {}, callback);
             }
         };
     };

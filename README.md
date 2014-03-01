@@ -10,14 +10,12 @@ It also allows using the same query syntax on client and server side to get data
 
 ## Install
 
-**NOTE:** You need to have NodeJS, Database (Cassandra, etc.) installed and running.
-
 ```sh
     $ git clone https://github.com/ngduc/mystik.git
     $ npm install
 ```
 
-Make sure you have Database installed and running. The example code requires Cassandra running and 'test' keyspace created:
+**NOTE:** Make sure you have Database installed and running. The example code requires Cassandra running and 'test' keyspace created:
 
 ```sh
     $ cd cassandra/bin
