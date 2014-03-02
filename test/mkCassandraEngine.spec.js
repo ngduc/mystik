@@ -30,7 +30,7 @@ describe('Cassandra Engine', function () {
 
     var expectUserCount = function(n, done) {
         Users.count(function(err, res) {
-            expect(res).toBe(n);
+            expect(res.result.count).toBe(n);
             done();
         });
     };
@@ -42,7 +42,7 @@ describe('Cassandra Engine', function () {
             password: '11',
             zipcode: 94040,
             age: 30
-        }, function(err, data) {
+        }, function(err, res) {
             expect(err).toBe(null);
             expectUserCount(2, done);
         });
@@ -55,7 +55,7 @@ describe('Cassandra Engine', function () {
             password: '22',
             zipcode: 94040,
             age: 40
-        }, function(err, data) {
+        }, function(err, res) {
             expect(err).toBe(null);
             expectUserCount(3, done);
         });
@@ -63,50 +63,50 @@ describe('Cassandra Engine', function () {
 
     it('should FIND row(s)', function (done) {
         Users.find({ zipcode: 94040 }, function(err, res) {
-            expect(res.length).toBe(2);
-            expect(res[0].zipcode).toBe(94040);
+            expect(res.result.length).toBe(2);
+            expect(res.result[0].zipcode).toBe(94040);
             done();
         });
     });
 
     it('should FIND ONE row', function (done) {
         Users.findOne({ zipcode: 94040 }, function(err, res) {
-            expect(res.zipcode).toBe(94040);
+            expect(res.result.zipcode).toBe(94040);
             done();
         });
     });
 
     it('should FIND ONE using SQL', function (done) {
         Users.findOneWhere('uid = ? AND zipcode = ?', ['_uid01', 94040], function(err, res) {
-            expect(res.zipcode).toBe(94040);
+            expect(res.result.zipcode).toBe(94040);
             done();
         });
     });
 
     it('should FIND with IN keyword', function (done) {
         Users.find({ uid: { $in: ['_uid01', '_uid02'] } }, function(err, res) {
-            expect(res.length).toBe(2);
+            expect(res.result.length).toBe(2);
             done();
         });
     });
 
     it('should FIND ALL', function (done) {
         Users.findAll(function(err, res) {
-            expect(res.length).toBe(3);
+            expect(res.result.length).toBe(3);
             done();
         });
     });
 
     it('should FIND using SQL', function (done) {
         Users.findWhere('uid = ? AND zipcode = ?', ['_uid01', 94040], function(err, res) {
-            expect(res.length).toBe(1);
+            expect(res.result.length).toBe(1);
             done();
         });
     });
 
     it('should FIND with operators using SQL', function (done) {
         Users.findWhere('zipcode = ? AND age < ? ALLOW FILTERING', [94040, 35], function(err, res) {
-            expect(res.length).toBe(1);
+            expect(res.result.length).toBe(1);
             done();
         });
     });
@@ -114,7 +114,11 @@ describe('Cassandra Engine', function () {
     it('should UPDATE existing data', function (done) {
         Users.update({age: 21, zipcode: 92020}, {uid: '_uid00'}, function(err, res) {
             expect(err).toBe(null);
-            done();
+
+            Users.findOne({uid: '_uid00'}, function(err, res) {
+                expect(res.result.zipcode).toBe(92020);
+                done();
+            });
         });
     });
 

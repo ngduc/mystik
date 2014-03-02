@@ -59,6 +59,39 @@ From client side, you will need to use MkRestEngine to make call to "APIs" (Node
 
 See [this example](app/index.html)
 
+## Engines
+
+Engine (Database Engine) is the persistence layer. It provides implementations for the interface methods of MkTable.
+
+Engine is supposed to be swapped out easily to use another Database or Data source.
+
+Engine methods should return result(s) or error(s) in format like below:
+
+```
+    Find() result(s):
+    {
+        "timestamp": "1393728392387",
+        "result": [
+            {
+                "uid": "_uid0111",
+                "age": null,
+                "password": "wialrqxkrnovfgvi",
+                "username": null,
+                "zipcode": null
+            }
+        ]
+    }
+
+    Error:
+    {
+        "code": 0123,
+        "message": "Some error message",
+        "error" {
+            // error object of the DB driver
+        }
+    }
+```
+
 ## Running Tests
 
 Make sure you have Database installed and running. To run unit tests:

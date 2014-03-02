@@ -8,7 +8,7 @@ define([], function (Utils) {
             _ajax = ajaxFn;
 
         return {
-            exec: function (table, type, urlParams, data, callback) {
+            request: function (table, type, urlParams, data, callback) {
                 var url = _ver + '/' + table + '?' + $.param(urlParams);
                 var ajaxObj = { type: type, url: url, data: JSON.stringify(data), contentType: 'application/json' };
                 if (ajaxObj.data === '{}') {
@@ -20,19 +20,19 @@ define([], function (Utils) {
                     });
             },
             find: function (table, urlParams, callback) {
-                this.exec(table, 'GET', urlParams, {}, callback);
+                this.request(table, 'GET', urlParams, {}, callback);
             },
             findAll: function (table, callback) {
-                this.exec(table, 'GET', {}, {}, callback);
+                this.request(table, 'GET', {}, {}, callback);
             },
             insert: function(table, obj, callback) {
-                this.exec(table, 'POST', {}, obj, callback);
+                this.request(table, 'POST', {}, obj, callback);
             },
             update: function (table, urlParams, params, callback) {
-                this.exec(table, 'PUT', urlParams, params, callback);
+                this.request(table, 'PUT', urlParams, params, callback);
             },
             delete: function(table, urlParams, callback) {
-                this.exec(table, 'DELETE', urlParams, {}, callback);
+                this.request(table, 'DELETE', urlParams, {}, callback);
             }
         };
     };
