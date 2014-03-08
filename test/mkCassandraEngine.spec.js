@@ -30,7 +30,7 @@ describe('Cassandra Engine', function () {
 
     var expectUserCount = function(n, done) {
         Users.count(function(err, res) {
-            expect(res.result.count).toBe(n);
+            expect(res.result).toBe(n);
             done();
         });
     };
@@ -43,7 +43,7 @@ describe('Cassandra Engine', function () {
             zipcode: 94040,
             age: 30
         }, function(err, res) {
-            expect(err).toBe(null);
+            expect(err.error).toBe(null);
             expectUserCount(2, done);
         });
     });
@@ -56,7 +56,7 @@ describe('Cassandra Engine', function () {
             zipcode: 94040,
             age: 40
         }, function(err, res) {
-            expect(err).toBe(null);
+            expect(err.error).toBe(null);
             expectUserCount(3, done);
         });
     });

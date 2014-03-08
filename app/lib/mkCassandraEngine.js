@@ -8,32 +8,7 @@ define(['./mkUtils'], function (Utils) {
         var DEBUG = true;
         var _client = client;
 
-        var invokeCallback = function(callback, err, res) {
-            var retErr = null, retRes = null;
-            if (err != null) {
-                retErr = {
-                    'code': -1,
-                    'message': '',
-                    'error': err
-                };
-            }
-            if (res != null) {
-                retRes = {
-                    'timestamp': Date.now().toString(),
-                    'result': res
-                };
-            }
-            if (callback) {
-                callback(retErr, retRes);
-            }
-        };
 
-        function setResult(res, result) {
-            if (res && typeof res.result !== 'undefined') {
-                res.result = result;
-            }
-            return res;
-        }
 
         return {
             exec: function (table, sql, params, callback) {
@@ -41,10 +16,10 @@ define(['./mkUtils'], function (Utils) {
                     function (err, res) {
                         if (err) {
                             DEBUG && console.log('ERROR:', err);
-                            invokeCallback(callback, err, {});
+                            if (callback) callback(err, res);
                         } else {
                             DEBUG && console.log('DONE:', sql); /* jshint -W030 */
-                            invokeCallback(callback, err, res);
+                            if (callback) callback(err, res);
                         }
                     }
                 );
@@ -54,7 +29,7 @@ define(['./mkUtils'], function (Utils) {
                 var sql = 'SELECT * FROM ' + table + ' WHERE ' + p.sql;
                 this.exec(table, sql, p.params, function (err, res) {
                     if (callback) {
-                        callback(err, setResult(res, res.result.rows));
+                        callback(Utils.wrapError(err), Utils.wrapResult(res, res.rows));
                     }
                 });
             },
@@ -63,12 +38,12 @@ define(['./mkUtils'], function (Utils) {
                 var sql = 'SELECT * FROM ' + table + ' WHERE ' + p.sql + ' LIMIT 1';
                 this.exec(table, sql, p.params, function (err, res) {
                     var one = null;
-                    if (typeof res.result !== 'undefine' &&
-                        typeof res.result.rows[0] !== 'undefined') {
-                        one = res.result.rows[0];
+                    if (typeof res !== 'undefine' &&
+                        typeof res.rows[0] !== 'undefined') {
+                        one = res.rows[0];
                     }
                     if (callback) {
-                        callback(err, setResult(res, one));
+                        callback(Utils.wrapError(err), Utils.wrapResult(res, one));
                     }
                 });
             },
@@ -79,7 +54,7 @@ define(['./mkUtils'], function (Utils) {
                 var sql = 'SELECT * FROM ' + table + whereClause;
                 this.exec(table, sql, params, function (err, res) {
                     if (callback) {
-                        callback(err, setResult(res, res.result.rows));
+                        callback(Utils.wrapError(err), Utils.wrapResult(res, res.rows));
                     }
                 });
             },
@@ -87,12 +62,12 @@ define(['./mkUtils'], function (Utils) {
                 var sql = 'SELECT * FROM ' + table + ' WHERE ' + whereClause + ' LIMIT 1';
                 this.exec(table, sql, params, function (err, res) {
                     var one = null;
-                    if (typeof res.result !== 'undefine' &&
-                        typeof res.result.rows[0] !== 'undefined') {
-                        one = res.result.rows[0];
+                    if (typeof res !== 'undefine' &&
+                        typeof res.rows[0] !== 'undefined') {
+                        one = res.rows[0];
                     }
                     if (callback) {
-                        callback(err, setResult(res, one));
+                        callback(Utils.wrapError(err), Utils.wrapResult(res, one));
                     }
                 });
             },
@@ -108,7 +83,11 @@ define(['./mkUtils'], function (Utils) {
                 }
                 var sql = ['INSERT INTO ', table, '(', cols.join(), ') VALUES(', qmarks.join(), ');'].join('');
 
-                this.exec(table, sql, vals, callback);
+                this.exec(table, sql, vals, function(err, res) {
+                    if (callback) {
+                        callback(Utils.wrapError(err), Utils.wrapResult(res, res));
+                    }
+                });
             },
             update: function (table, obj, params, callback) {
                 var p = Utils.json2sql.stringify(params);
@@ -130,7 +109,7 @@ define(['./mkUtils'], function (Utils) {
 
                 this.exec(table, sql, [], function (err, res) {
                     if (callback) {
-                        callback(err, setResult(res, { count: res.result.rows[0].count.low }));
+                        callback(Utils.wrapError(err), Utils.wrapResult(res, res.rows[0].count.low));
                     }
                 });
             },

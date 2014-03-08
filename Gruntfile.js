@@ -15,5 +15,10 @@ module.exports = function(grunt) {
 
     grunt.loadNpmTasks('grunt-contrib-jshint');
 
+    grunt.registerTask('test', 'execute jasmine unit tests', function() {
+        var shell = require('shelljs');
+        shell.exec('jasmine-node --forceexit ./test/');
+    });
+
     grunt.registerTask('default', ['jshint']);
 };

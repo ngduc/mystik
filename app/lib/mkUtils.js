@@ -2,6 +2,10 @@
 if (typeof define !== 'function') { var define = require('amdefine')(module); }
 
 define([], function() {
+
+    // Polyfill for Object.keys
+    Object.keys=Object.keys||function(o,k,r){r=[];for(k in o)r.hasOwnProperty.call(o,k)&&r.push(k);return r;};
+
     // mongo2sql, source: https://gist.github.com/jankuca/761760
     // DUC NGUYEN updated 02/2014
     var DEBUG = true;
@@ -212,6 +216,35 @@ define([], function() {
             async.eachSeries(sqlArray, fn, function() {
                 callback();
             });
+        },
+
+        wrapError: function (err) {
+            var wrappedErr;
+            if (err !== null) {
+                wrappedErr = {
+                    'code': -1,
+                    'message': '',
+                    'error': err
+                };
+            } else {
+                wrappedErr = {
+                    'code': 0,
+                    'message': '',
+                    'error': null
+                };
+            }
+            return wrappedErr;
+        },
+
+        wrapResult: function(res, result) {
+            var wrappedRes = {
+                'timestamp': Date.now().toString(),
+                'result': null
+            };
+            if (res !== null) {
+                wrappedRes.result = result;
+            }
+            return wrappedRes;
         }
     };
 });
