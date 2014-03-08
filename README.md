@@ -2,7 +2,7 @@ Mystik
 ======
 [![Build Status](https://travis-ci.org/ngduc/mystik.png?branch=master)](https://travis-ci.org/ngduc/mystik)
 
-Mystik (MkTable) is a generic Javascript DAO (Data Access Objects) for database systems including NoSQL databases, NodeJS support and REST API web service handling.
+Mystik (MkTable) is a generic Javascript DAO (Data Access Objects) for database systems including NoSQL databases, Redis, NodeJS support and REST API web service handling.
 
 It also allows using the same query syntax on client and server side to get data. Data could come from database or APIs in JSON format.
 
@@ -65,7 +65,7 @@ Engine (Database Engine) is the persistence layer. It provides implementations f
 
 Engine is supposed to be swapped out easily to use another Database or Data source.
 
-Engine methods should return result(s) or error(s) in format like below:
+Engine methods should return result(s) or error(s) in a wrapper format like examples below:
 
 ```
     Find() result(s):
@@ -108,9 +108,10 @@ Make sure you have Database installed and running. To run unit tests:
     - express
     - node requirejs
     - amdefine
-    - node-cassandra-cql - if Cassandra is used.
     - jasmine-node - for unit testing.
     - async - for unit testing.
+    - node-cassandra-cql - if Cassandra is used.
+    - redis/hiredis - if Redis is used.
 
 ## License
 
