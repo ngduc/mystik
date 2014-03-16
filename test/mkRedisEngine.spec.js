@@ -72,7 +72,7 @@ describe('Redis Engine', function () {
 
     it('should FIND ALL', function (done) {
         Users.findAll(function(err, res) {
-            expect(res.result.length).toBe(2);
+            expect(Object.keys(res.result).length).toBe(2);
             done();
         });
     });

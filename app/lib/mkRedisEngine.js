@@ -26,8 +26,7 @@ define(['./mkUtils'], function (Utils) {
                 return null; // no implementation
             },
             findAll: function (table, callback) {
-                // find all keys
-                _client.hkeys(table, function (err, res) {
+                _client.hgetall(table, function (err, res) {
                     if (callback) {
                         callback(Utils.wrapError(err), Utils.wrapResult(res, res));
                     }

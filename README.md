@@ -15,7 +15,7 @@ It also allows using the same query syntax on client and server side to get data
     $ npm install
 ```
 
-**NOTE:** Make sure you have Database installed and running. The example code requires Cassandra running and 'test' keyspace created:
+**NOTE:** The example code and unit tests for Cassandra requires Cassandra running and 'test' keyspace created. So make sure you have Database installed and running:
 
 ```sh
     $ cd cassandra/bin
