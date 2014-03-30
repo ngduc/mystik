@@ -29,7 +29,7 @@ define(['./mkUtils'], function (Utils) {
                 var sql = 'SELECT * FROM ' + table + ' WHERE ' + p.sql;
                 this.exec(table, sql, p.params, function (err, res) {
                     if (callback) {
-                        callback(Utils.wrapError(err), Utils.wrapResult(res, res.rows));
+                        callback(Utils.wrapError(err), Utils.wrapResult(res, (err ? null : res.rows) ));
                     }
                 });
             },
