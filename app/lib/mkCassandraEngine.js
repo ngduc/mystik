@@ -8,8 +8,6 @@ define(['./mkUtils'], function (Utils) {
         var DEBUG = true;
         var _client = client;
 
-
-
         return {
             exec: function (table, sql, params, callback) {
                 _client.execute(sql, params,
@@ -25,8 +23,8 @@ define(['./mkUtils'], function (Utils) {
                 );
             },
             find: function (table, params, callback) {
-                var p = Utils.json2sql.stringify(params);
-                var sql = 'SELECT * FROM ' + table + ' WHERE ' + p.sql;
+                var p = Utils.json2sql.stringify( params );
+                var sql = 'SELECT * FROM "' + table + '" WHERE ' + p.sql;
                 this.exec(table, sql, p.params, function (err, res) {
                     if (callback) {
                         callback(Utils.wrapError(err), Utils.wrapResult(res, (err ? null : res.rows) ));
@@ -34,8 +32,8 @@ define(['./mkUtils'], function (Utils) {
                 });
             },
             findOne: function (table, params, callback) {
-                var p = Utils.json2sql.stringify(params);
-                var sql = 'SELECT * FROM ' + table + ' WHERE ' + p.sql + ' LIMIT 1';
+                var p = Utils.json2sql.stringify( params );
+                var sql = 'SELECT * FROM "' + table + '" WHERE ' + p.sql + ' LIMIT 1';
                 this.exec(table, sql, p.params, function (err, res) {
                     var one = null;
                     if (typeof res !== 'undefine' &&
@@ -51,7 +49,7 @@ define(['./mkUtils'], function (Utils) {
                 if (whereClause.length > 0) {
                     whereClause = ' WHERE ' + whereClause;
                 }
-                var sql = 'SELECT * FROM ' + table + whereClause;
+                var sql = 'SELECT * FROM "' + table + '" ' + whereClause;
                 this.exec(table, sql, params, function (err, res) {
                     if (callback) {
                         callback(Utils.wrapError(err), Utils.wrapResult(res, res.rows));
@@ -59,7 +57,7 @@ define(['./mkUtils'], function (Utils) {
                 });
             },
             findOneWhere: function (table, whereClause, params, callback) {
-                var sql = 'SELECT * FROM ' + table + ' WHERE ' + whereClause + ' LIMIT 1';
+                var sql = 'SELECT * FROM "' + table + '" WHERE ' + whereClause + ' LIMIT 1';
                 this.exec(table, sql, params, function (err, res) {
                     var one = null;
                     if (typeof res !== 'undefine' &&
@@ -77,11 +75,11 @@ define(['./mkUtils'], function (Utils) {
             insert: function (table, obj, callback) {
                 var cols = [], qmarks = [], vals = [];
                 for (var i in obj) {
-                    cols.push(i);
+                    cols.push('"' + i + '"');
                     vals.push(obj[i]);
                     qmarks.push('?');
                 }
-                var sql = ['INSERT INTO ', table, '(', cols.join(), ') VALUES(', qmarks.join(), ');'].join('');
+                var sql = ['INSERT INTO "', table, '"(', cols.join(), ') VALUES(', qmarks.join(), ');'].join('');
 
                 this.exec(table, sql, vals, function(err, res) {
                     if (callback) {
@@ -90,14 +88,14 @@ define(['./mkUtils'], function (Utils) {
                 });
             },
             update: function (table, obj, params, callback) {
-                var p = Utils.json2sql.stringify(params);
+                var p = Utils.json2sql.stringify( params );
                 var cols = '', vals = [];
                 for (var i in obj) {
-                    cols += i + '=?, ';
+                    cols += '"' + i + '"=?, ';
                     vals.push(obj[i]);
                 }
                 cols = cols.substr(0, cols.length - 2); // remove last comma.
-                var sql = 'UPDATE ' + table + ' SET ' + cols + ' WHERE ' + p.sql;
+                var sql = 'UPDATE "' + table + '" SET ' + cols + ' WHERE ' + p.sql;
 
                 var arr = vals.concat(p.params); // merge
                 this.exec(table, sql, arr, function (err, res) {
@@ -105,7 +103,7 @@ define(['./mkUtils'], function (Utils) {
                 });
             },
             count: function (table, callback) {
-                var sql = 'SELECT COUNT(*) FROM ' + table;
+                var sql = 'SELECT COUNT(*) FROM "' + table + '"';
 
                 this.exec(table, sql, [], function (err, res) {
                     if (callback) {
@@ -114,8 +112,8 @@ define(['./mkUtils'], function (Utils) {
                 });
             },
             delete: function (table, params, callback) {
-                var obj = Utils.json2sql.stringify(params);
-                var sql = 'DELETE FROM ' + table + ' WHERE ' + obj.sql;
+                var obj = Utils.json2sql.stringify( params );
+                var sql = 'DELETE FROM "' + table + '" WHERE ' + obj.sql;
 
                 this.exec(table, sql, obj.params, callback);
             }

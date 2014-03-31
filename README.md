@@ -4,7 +4,7 @@ Mystik
 
 Mystik (MkTable) is a generic Javascript DAO (Data Access Objects) for database systems including NoSQL databases, Redis, NodeJS support and REST API web service handling.
 
-It also allows using the same query syntax on client and server side to get data. Data could come from database or APIs in JSON format.
+It also allows using the same query syntax on both client and server side to get data. Data could come from database or APIs in JSON format.
 
 **NOTE:** All working features are covered in unit tests. Please help implement engines for other databases or fix defects. Thanks.
 
