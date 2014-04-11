@@ -3,17 +3,18 @@ node_js:
   - "0.10"
 services:
   # travis cassandra doesn't start properly: https://github.com/travis-ci/travis-ci/issues/840
-  #- cassandra
+  - cassandra
   - redis-server
 before_install:
-  - sudo sh -c "echo 'JVM_OPTS=\"\${JVM_OPTS} -Djava.net.preferIPv4Stack=false\"' >> /usr/local/cassandra/conf/cassandra-env.sh"
-  - sudo service cassandra start
+  #- sudo sh -c "echo 'JVM_OPTS=\"\${JVM_OPTS} -Djava.net.preferIPv4Stack=false\"' >> /usr/local/cassandra/conf/cassandra-env.sh"
+  #- sudo service cassandra start
+  #- sleep 10
+  #- printf "CREATE KEYSPACE test; \n" > ./testsetup.cql
+  #- cassandra-cli -h localhost -p 9160 -f ./testsetup.cql
+  - "echo \"CREATE KEYSPACE test;\" | cqlsh --cqlversion=3.0.3"
 env:
   - CASSANDRA_HOST=127.0.0.1
 jdk:
   - openjdk7
 before_script:
   - "npm i -g jasmine-node"
-  - sleep 15
-  - printf "CREATE KEYSPACE test; \n" > /usr/local/testsetup.cql
-  - cassandra-cli -h localhost -p 9160 -f /usr/local/testsetup.cql
