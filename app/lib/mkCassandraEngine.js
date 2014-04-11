@@ -8,6 +8,16 @@ define(['./mkUtils'], function (Utils) {
         var DEBUG = true;
         var _client = client;
 
+        // customize Utils.wrapError for CassandraEngine:
+        function _wrapError(err) {
+            var e = Utils.wrapError(err);
+            if (typeof e.error !== 'undefined' && e.error &&
+                typeof e.error.name !== 'undefined') {
+                e.message = e.error.name;
+            }
+            return e;
+        }
+
         return {
             exec: function (table, sql, params, callback) {
                 _client.execute(sql, params,
@@ -27,7 +37,7 @@ define(['./mkUtils'], function (Utils) {
                 var sql = 'SELECT * FROM "' + table + '" WHERE ' + p.sql;
                 this.exec(table, sql, p.params, function (err, res) {
                     if (callback) {
-                        callback(Utils.wrapError(err), Utils.wrapResult(res, (err ? null : res.rows) ));
+                        callback(_wrapError(err), Utils.wrapResult(res, (err ? null : res.rows) ));
                     }
                 });
             },
@@ -36,12 +46,13 @@ define(['./mkUtils'], function (Utils) {
                 var sql = 'SELECT * FROM "' + table + '" WHERE ' + p.sql + ' LIMIT 1';
                 this.exec(table, sql, p.params, function (err, res) {
                     var one = null;
-                    if (typeof res !== 'undefine' &&
+                    if (typeof res !== 'undefined' &&
+                        typeof res.rows !== 'undefined' &&
                         typeof res.rows[0] !== 'undefined') {
                         one = res.rows[0];
                     }
                     if (callback) {
-                        callback(Utils.wrapError(err), Utils.wrapResult(res, one));
+                        callback(_wrapError(err), Utils.wrapResult(res, one));
                     }
                 });
             },
@@ -52,7 +63,7 @@ define(['./mkUtils'], function (Utils) {
                 var sql = 'SELECT * FROM "' + table + '" ' + whereClause;
                 this.exec(table, sql, params, function (err, res) {
                     if (callback) {
-                        callback(Utils.wrapError(err), Utils.wrapResult(res, res.rows));
+                        callback(_wrapError(err), Utils.wrapResult(res, res.rows));
                     }
                 });
             },
@@ -60,12 +71,12 @@ define(['./mkUtils'], function (Utils) {
                 var sql = 'SELECT * FROM "' + table + '" WHERE ' + whereClause + ' LIMIT 1';
                 this.exec(table, sql, params, function (err, res) {
                     var one = null;
-                    if (typeof res !== 'undefine' &&
+                    if (typeof res !== 'undefined' &&
                         typeof res.rows[0] !== 'undefined') {
                         one = res.rows[0];
                     }
                     if (callback) {
-                        callback(Utils.wrapError(err), Utils.wrapResult(res, one));
+                        callback(_wrapError(err), Utils.wrapResult(res, one));
                     }
                 });
             },
@@ -83,7 +94,7 @@ define(['./mkUtils'], function (Utils) {
 
                 this.exec(table, sql, vals, function(err, res) {
                     if (callback) {
-                        callback(Utils.wrapError(err), Utils.wrapResult(res, res));
+                        callback(_wrapError(err), Utils.wrapResult(res, res));
                     }
                 });
             },
@@ -107,7 +118,7 @@ define(['./mkUtils'], function (Utils) {
 
                 this.exec(table, sql, [], function (err, res) {
                     if (callback) {
-                        callback(Utils.wrapError(err), Utils.wrapResult(res, res.rows[0].count.low));
+                        callback(_wrapError(err), Utils.wrapResult(res, res.rows[0].count.low));
                     }
                 });
             },
