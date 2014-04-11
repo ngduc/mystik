@@ -20,7 +20,7 @@ describe('Cassandra Engine', function () {
 
     beforeAll(function(done) {
         var sqls = [
-            "DROP KEYSPACE test;",
+            //"DROP KEYSPACE test;",
             "CREATE KEYSPACE test WITH REPLICATION = { 'class':'SimpleStrategy', 'replication_factor': 1 };",
             "USE test;",
             "DROP TABLE IF EXISTS users;",
