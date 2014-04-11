@@ -11,7 +11,7 @@ before_install:
   - sleep 10
   #- printf "CREATE KEYSPACE test; \n" > ./testsetup.cql
   #- cassandra-cli -h localhost -p 9160 -f ./testsetup.cql
-  - "echo \"CREATE KEYSPACE test;\" | /usr/local/cassandra/bin/cqlsh --cqlversion=3.0.3"
+  - echo "create KEYSPACE test;" | /usr/local/cassandra/bin/cqlsh -3
 env:
   #- CASSANDRA_HOST=127.0.0.1
 jdk:
