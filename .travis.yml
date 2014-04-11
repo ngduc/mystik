@@ -14,10 +14,10 @@ before_install:
   - sleep 10
   #- printf "CREATE KEYSPACE test; \n" > ./testsetup.cql
   #- cassandra-cli -h localhost -p 9160 -f ./testsetup.cql
-  - "echo \"CREATE KEYSPACE test WITH REPLICATION = { 'class':'SimpleStrategy', 'replication_factor': 1 };\" | /usr/local/cassandra/bin/cqlsh --cqlversion=3.0.3"
+  #- "echo \"CREATE KEYSPACE test WITH REPLICATION = { 'class':'SimpleStrategy', 'replication_factor': 1 };\" | /usr/local/cassandra/bin/cqlsh --cqlversion=3.0.3"
 
 env:
-  #- CASSANDRA_HOST=127.0.0.1
+  - CASSANDRA_HOST=127.0.0.1
 
 jdk:
   - openjdk7

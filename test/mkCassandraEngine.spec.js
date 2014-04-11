@@ -3,7 +3,7 @@
 var async = require('async');
 
 var cql = require('node-cassandra-cql');
-var dbClient = new cql.Client({hosts: ['localhost:9042'], keyspace: 'test'});
+var dbClient = new cql.Client({hosts: ['localhost:9042']});
 
 var MkUtils = require('../app/lib/mkUtils.js');
 var MkCassandraEngine = require('../app/lib/mkCassandraEngine.js');
@@ -20,6 +20,9 @@ describe('Cassandra Engine', function () {
 
     beforeAll(function(done) {
         var sqls = [
+            "DROP KEYSPACE test;",
+            "CREATE KEYSPACE test WITH REPLICATION = { 'class':'SimpleStrategy', 'replication_factor': 1 };",
+            "USE test;",
             "DROP TABLE IF EXISTS users;",
             "CREATE TABLE users (uid text,	username text,	password text, zipcode int, age int, PRIMARY KEY(uid) );",
             "CREATE INDEX users_zipcode_idx ON users (zipcode);",
