@@ -1,6 +1,9 @@
 {
   "name": "mystik",
-  "version": "0.0.1",
+  "version": "0.0.2",
+  "author": "Duc Nguyen <ducjava@gmail.com>",
+  "keywords": ["dao", "engine", "db", "database", "dbms", "odm", "data", "datastore", "query", "nosql", "orm"],
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/ngduc/mystik.git"
