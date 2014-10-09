@@ -13,8 +13,8 @@ define(['./mkUtils'], function (Utils) {
                 var doneFn = ( callback ? callback : Utils.defer() );
                 var Table = _client.model( table );
 
-                Table.find( {}, params, function( err, res ) {
-                    Utils.done( doneFn, err, res );
+                Table.find( params, function( err, res ) {
+                    Utils.done( doneFn, Utils.wrapError( err ), Utils.wrapResult( res, res ) );
                 });
                 if ( doneFn && doneFn.promise ) return doneFn.promise;
             },
@@ -22,8 +22,8 @@ define(['./mkUtils'], function (Utils) {
                 var doneFn = ( callback ? callback : Utils.defer() );
                 var Table = _client.model( table );
 
-                Table.findOne( {}, params, function( err, res ) {
-                    Utils.done( doneFn, err, res );
+                Table.findOne( params, function( err, res ) {
+                    Utils.done( doneFn, Utils.wrapError( err ), Utils.wrapResult( res, res ) );
                 });
                 if ( doneFn && doneFn.promise ) return doneFn.promise;
             },

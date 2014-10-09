@@ -7,6 +7,7 @@ services:
   # travis cassandra doesn't start properly: https://github.com/travis-ci/travis-ci/issues/840
   #- cassandra
   - redis-server
+  - mongodb
 
 before_install:
   - sudo sh -c "echo 'JVM_OPTS=\"\${JVM_OPTS} -Djava.net.preferIPv4Stack=false\"' >> /usr/local/cassandra/conf/cassandra-env.sh"
