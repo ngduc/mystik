@@ -15,14 +15,6 @@ It also allows using the same query syntax on both client and server side to get
     $ npm install
 ```
 
-**NOTE:** The example code and unit tests for Cassandra requires Cassandra running and 'test' keyspace created. So make sure you have Database installed and running:
-
-```sh
-    $ cd cassandra/bin
-    $ printf "CREATE KEYSPACE test; \n" > ./testsetup.cql
-    $ ./cassandra-cli -h localhost -p 9160 -f ./testsetup.cql
-```
-
 ## Usage
 
 This is a very basic NodeJS example. Prepare DB connection:
@@ -112,6 +104,7 @@ Make sure you have Database installed and running. To run unit tests:
     - async - for unit testing.
     - node-cassandra-cql - if Cassandra is used.
     - redis/hiredis - if Redis is used.
+    - mongoose - if MongoDB is used.
 
 ## License
 

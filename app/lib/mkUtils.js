@@ -199,6 +199,27 @@ define([], function() {
     return {
         json2sql: json2sql,
 
+        defer: function() {
+            var Q = require('q');
+            return Q.defer();
+        },
+
+        done: function( deferOrCallback, err, res ) {
+            if ( ! deferOrCallback ) {
+                return;
+            }
+
+            if ( typeof deferOrCallback === 'function' ) {
+                deferOrCallback( err, res );
+            } else {
+                if ( err == null || err.error == null ) {
+                    deferOrCallback.resolve( res );
+                } else {
+                    deferOrCallback.reject( new Error( err ) );
+                }
+            }
+        },
+
         execScripts: function(dbClient, sqlArray, callback) {
             var async = require('async');
             var fn = function(item, ret) {

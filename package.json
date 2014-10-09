@@ -6,15 +6,17 @@
     "url": "https://github.com/ngduc/mystik.git"
   },
   "dependencies": {
-    "node-cassandra-cql": "~0.4.3",
-    "express": "~3.4.8",
-    "requirejs": "~2.1.11",
     "amdefine": "~0.1.0",
     "async": "~0.2.10",
+    "express": "~3.4.8",
+    "hiredis": "~0.1.16",
     "jasmine-node": "~1.13.1",
-    "validator": "~3.4.0",
+    "mongoose": "^3.8.17",
+    "node-cassandra-cql": "~0.4.3",
+    "q": "^1.0.1",
     "redis": "~0.10.1",
-    "hiredis": "~0.1.16"
+    "requirejs": "~2.1.11",
+    "validator": "~3.4.0"
   },
   "scripts": {
     "test": "jasmine-node --forceexit ./test/"
