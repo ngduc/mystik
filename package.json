@@ -1,5 +1,5 @@
 {
-  "name": "mystik",
+  "name": "mystik-dao",
   "version": "0.0.2",
   "author": "Duc Nguyen <ducjava@gmail.com>",
   "keywords": ["dao", "engine", "db", "database", "dbms", "odm", "data", "datastore", "query", "nosql", "orm"],
