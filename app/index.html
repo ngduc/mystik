@@ -1,11 +1,13 @@
 <html>
 <body>
 
-<button id="btnFindAll">FindAll</button>
-<button id="btnFindOne">Find user</button>
-<button id="btnUpdate">Update</button>
-<button id="btnDelete">Delete</button>
-<button id="btnInsert">Insert</button>
+<nav>
+    <button id="btnFindAll">FindAll</button>
+    <button id="btnFindOne">Find user</button>
+    <button id="btnUpdate">Update</button>
+    <button id="btnDelete">Delete</button>
+    <button id="btnInsert">Insert</button>
+</nav>
 <p/>
 
 <div id="lblAction"></div>
@@ -16,48 +18,49 @@
 <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script>
-    $(document).ready(function () {
-        require(['lib/mkTable.js', 'lib/mkRestEngine.js'],
-                function (MkTable, MkRestEngine) {
-                    var restEng = new MkRestEngine('v1', $.ajax);
-                    var Users = new MkTable(restEng, 'users');
+    $( document ).ready( function () {
+        require( ['lib/mkTable.js', 'lib/mkRestEngine.js'],
+                function ( MkTable, MkRestEngine ) {
+                    var restEng = new MkRestEngine( 'v1', $.ajax );
+                    var Users = new MkTable( restEng, 'users' );
 
-                    $('#btnFindAll').on('click', function () {
-                        $('#lblAction').text('FindAll users:');
-                        Users.findAll(showResult);
-                    });
+                    $( 'nav' ).on( 'click', function ( ev ) {
+                        switch ( ev.target.id ) {
 
-                    $('#btnFindOne').on('click', function () {
-                        $('#lblAction').text('Find user:');
-                        Users.find({uid: '_uid01'}, showResult);
-                    });
+                            case 'btnFindAll':
+                                $( '#lblAction' ).text( 'FindAll users:' );
+                                Users.findAll( showResult );
+                                break;
+                            case 'btnFindOne':
+                                $( '#lblAction' ).text( 'Find user:' );
+                                Users.find( {uid: '_uid01'}, showResult );
+                                break;
+                            case 'btnUpdate':
+                                $( '#lblAction' ).text( 'Update with random password:' );
+                                var randomPsw = Math.random().toString( 36 ).replace( /[^a-z]+/g, '' );
+                                Users.update( {uid: '_uid01'}, {password: randomPsw}, showResult );
+                                break;
+                            case 'btnDelete':
+                                $( '#lblAction' ).text( 'Delete a user:' );
+                                Users.delete( {uid: '_uid01'}, showResult );
+                                break;
+                            case 'btnInsert':
+                                $( '#lblAction' ).text( 'Insert a user:' );
+                                Users.insert( {
+                                    uid: Math.random().toString( 36 ).replace( /[^a-z]+/g, '' ),
+                                    username: Math.random().toString( 36 ).replace( /[^a-z]+/g, '' ),
+                                    password: '11',
+                                    zipcode: 94040,
+                                    age: 40
+                                }, showResult );
+                                break;
+                        }
+                    } );
+                } );
+    } );
 
-                    $('#btnUpdate').on('click', function () {
-                        $('#lblAction').text('Update with random password:');
-                        var randomPsw = Math.random().toString(36).replace(/[^a-z]+/g, '');
-                        Users.update({uid: '_uid01'}, {password: randomPsw}, showResult);
-                    });
-
-                    $('#btnDelete').on('click', function () {
-                        $('#lblAction').text('Delete a user:');
-                        Users.delete({uid: '_uid01'}, showResult);
-                    });
-
-                    $('#btnInsert').on('click', function () {
-                        $('#lblAction').text('Insert a user:');
-                        Users.insert({
-                            uid: Math.random().toString(36).replace(/[^a-z]+/g, ''),
-                            username: Math.random().toString(36).replace(/[^a-z]+/g, ''),
-                            password: '11',
-                            zipcode: 94040,
-                            age: 40
-                        }, showResult);
-                    });
-                });
-    });
-
-    function showResult(err, res) {
-        $('#result').text(JSON.stringify(res, undefined, 2));
+    function showResult( err, res ) {
+        $( '#result' ).text( JSON.stringify( res, undefined, 2 ) );
     }
 </script>
 </body>
