@@ -21,7 +21,7 @@ var MkTable = require( '../app/lib/mkTable.js' );
 
 var beforeAll = function(fn) { it( '[beforeAll]', fn);}, afterAll = function(fn) { it( '[afterAll]', fn);}; // goo.gl/IhV41V
 
-describe('MongoDB Engine', function () {
+describe( 'MongoDB Engine', function () {
 
     var engine = new MkMongoEngine( dbClient );
     var Users = new MkTable( engine, 'users' );
@@ -95,6 +95,15 @@ describe('MongoDB Engine', function () {
         Users.findAll()
             .then( function( res ) {
                 expect( res.result.length ).toBe( 2 );
+                done();
+            });
+    });
+
+    it( 'should FIND ALL with SORT option', function ( done ) {
+        Users.findAll( null, { sort: { 'age': -1 } } )
+            .then( function( res ) {
+                expect( res.result.length ).toBe( 2 );
+                expect( res.result[0].age ).toBe( 40 );
                 done();
             });
     });

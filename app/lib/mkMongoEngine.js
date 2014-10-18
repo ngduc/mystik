@@ -18,9 +18,9 @@ define( ['./mkUtils'], function ( Utils ) {
             find: function ( table, params, callback, options ) {
                 var doneFn = ( callback ? callback : Utils.defer() );
                 var Table = _client.model( table ),
-                    options = processOptions( options );
+                    opts = processOptions( options );
 
-                Table.find( params ).setOptions( { lean: true } ).sort( options.sort ).exec( function ( err, res ) {
+                Table.find( params ).setOptions( { lean: true } ).sort( opts.sort ).exec( function ( err, res ) {
                     Utils.done( doneFn, Utils.wrapError( err ), Utils.wrapResult( res, res ) );
                 } );
                 if ( doneFn && doneFn.promise ) return doneFn.promise;
@@ -40,8 +40,8 @@ define( ['./mkUtils'], function ( Utils ) {
             findOneWhere: function ( table, whereClause, params, callback ) {
                 return null; // not implemented
             },
-            findAll: function ( table, callback ) {
-                return this.find( table, {}, callback );
+            findAll: function ( table, callback, options ) {
+                return this.find( table, {}, callback, options );
             },
             insert: function ( table, obj, callback ) {
                 var doneFn = ( callback ? callback : Utils.defer() );

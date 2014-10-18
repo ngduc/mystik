@@ -21,8 +21,8 @@
     $( document ).ready( function () {
         require( ['lib/mkTable.js', 'lib/mkRestEngine.js'],
                 function ( MkTable, MkRestEngine ) {
-                    var restEng = new MkRestEngine( 'v1', $.ajax );
-                    var Users = new MkTable( restEng, 'users' );
+                    var restEng = new MkRestEngine( 'v1', $.ajax ),
+                        Users = new MkTable( restEng, 'users' );
 
                     $( 'nav' ).on( 'click', function ( ev ) {
                         switch ( ev.target.id ) {
