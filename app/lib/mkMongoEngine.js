@@ -11,8 +11,8 @@ define( ['./mkUtils'], function ( Utils ) {
         var processOptions = function( opts ) {
             return {
                 sort: ( opts && opts.sort ? opts.sort : {} )
-            }
-        }
+            };
+        };
 
         return {
             find: function ( table, params, callback, options ) {
@@ -29,7 +29,7 @@ define( ['./mkUtils'], function ( Utils ) {
                 var doneFn = ( callback ? callback : Utils.defer() );
                 var Table = _client.model( table );
 
-                Table.findOne( params, function ( err, res ) {
+                Table.findOne( params ).setOptions( { lean: true } ).exec( function ( err, res ) {
                     Utils.done( doneFn, Utils.wrapError( err ), Utils.wrapResult( res, res ) );
                 } );
                 if ( doneFn && doneFn.promise ) return doneFn.promise;
@@ -59,13 +59,16 @@ define( ['./mkUtils'], function ( Utils ) {
                 var doneFn = ( callback ? callback : Utils.defer() );
                 var Table = _client.model( table );
 
-                Table.findOne( {}, params, function ( err, res ) {
-                    for ( var k in obj ) {
-                        res[ k ] = obj[ k ];
+                Table.findOne( params ).exec( function ( err, res ) {
+                    if ( res ) {
+                        for ( var k in obj ) {
+                            console.log( k, obj[ k ] );
+                            res[ k ] = obj[ k ];
+                        }
+                        res.save( function ( err, res ) {
+                            Utils.done( doneFn, Utils.wrapError( err ), Utils.wrapResult( res, res ) );
+                        } );
                     }
-                    res.save( function ( err, res ) {
-                        Utils.done( doneFn, Utils.wrapError( err ), Utils.wrapResult( res, res ) );
-                    } );
                 } );
                 if ( doneFn && doneFn.promise ) return doneFn.promise;
             },

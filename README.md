@@ -27,7 +27,7 @@ This is a very basic NodeJS example. Prepare DB connection:
     var Users = new MkTable(engine, 'users');
 ```
 
-Do some query and updating data on [users] table:
+Do some queries and updating data on [users] table:
 
 ```
     Users.find({ zipcode: 94040 }, function(err, res) {
@@ -47,7 +47,7 @@ See more interface methods in [mkTable.js](app/lib/mkTable.js)
 
 ### Client Side
 
-From client side, you will need to use MkRestEngine to make call to "APIs" (NodeJS) which in turn will query database and return JSON data.
+From client side, you can use MkRestEngine to make call to "APIs" (NodeJS) which in turn will query database and return JSON data.
 
 See [this example](app/index.html)
 
@@ -57,7 +57,7 @@ Engine (Database Engine) is the persistence layer. It provides implementations f
 
 Engine is supposed to be swapped out easily to use another Database or Data source.
 
-Engine methods should return result(s) or error(s) in a wrapper format like examples below:
+Engine methods should return result(s) or error(s) in the same wrapper format like examples below:
 
 ```
     Find() result(s):
@@ -93,6 +93,13 @@ Make sure you have Database installed and running. To run unit tests:
 
     # to stop the jasmine-node process when it is finished, use this:
     $ jasmine-node --forceexit ./test/
+```
+
+The Demo can be run to demonstrate client side APIs for CRUD: (require MongoDB or Cassandra DB)
+
+```sh
+    # start the Demo on port 3000 - http://localhost:3000
+    $ node app/server.js
 ```
 
 ## Dependencies
