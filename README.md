@@ -29,15 +29,11 @@ This is a very basic NodeJS example. Prepare DB connection:
 Do some queries and updating data on [users] table:
 
 ```
-    Users.find({ zipcode: 94040 }, function(err, res) {
-        // result (res) is an array of rows in JSON.
+    Users.find( { zipcode: 94040 } ).then( function( res ) {
+        // res.result is an array of rows in JSON.
     });
 
-    Users.findWhere('uid = ? AND zipcode = ?', ['_uid01', 94040], function(err, res) {
-        // query data using SQL where clause.
-    })
-
-    Users.update({age: 21, zipcode: 92020}, {uid: '_uid00'}, function(err, res) {
+    Users.update( { age: 21, zipcode: 92020 }, { uid: '_uid00' } ).then( function( res ) {
         // update user which has uid = '_uid00'
     });
 ```
@@ -105,14 +101,11 @@ The Demo can be run to demonstrate client side APIs for CRUD: (require MongoDB o
 
 ## Dependencies
 
-    - express
-    - node requirejs
-    - amdefine
-    - jasmine-node - for unit testing.
-    - async - for unit testing.
+    - Q for promise.
     - node-cassandra-cql - if Cassandra is used.
     - redis/hiredis - if Redis is used.
     - mongoose - if MongoDB is used.
+    - jasmine-node - for unit testing.
 
 ## License
 
