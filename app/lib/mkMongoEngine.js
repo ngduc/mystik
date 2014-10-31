@@ -1,8 +1,14 @@
 /* jshint -W030 */
-if (typeof define !== 'function') { var define = require('amdefine')(module); }
+// Defines a module that works in CommonJS and AMD: https://github.com/umdjs/umd/blob/master/nodeAdapter.js
+if ( typeof module === 'object' && typeof define !== 'function' ) {
+    var define = function ( factory ) {
+        module.exports = factory( require, exports, module );
+    };
+}
 
-define( ['./mkUtils'], function ( Utils ) {
+define( function ( require, exports, module ) {
     // DB client: https://github.com/learnboost/mongoose
+    var Utils = require( './mkUtils.js' );
 
     var MkMongoEngine = function ( client ) {
         var DEBUG = true;
@@ -62,7 +68,7 @@ define( ['./mkUtils'], function ( Utils ) {
                 Table.findOne( params ).exec( function ( err, res ) {
                     if ( res ) {
                         for ( var k in obj ) {
-                            console.log( k, obj[ k ] );
+                            // console.log( k, obj[ k ] );
                             res[ k ] = obj[ k ];
                         }
                         res.save( function ( err, res ) {

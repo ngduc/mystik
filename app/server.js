@@ -21,15 +21,12 @@ var mongoose = require( 'mongoose' ),
         age: Number
     } );
 db.model( 'users', UserSchema );
-var MkCassandraEngine = require( './lib/mkMongoEngine.js' );
-var MkTable = require( './lib/mkTable.js' );
+
+var engine = new require( './lib/mkMongoEngine.js' )( db ),
+    MkTable = require( './lib/mkTable.js' );
 
 
 
-
-
-
-var engine = new MkCassandraEngine( db );
 var Users = new MkTable( engine, 'users' );
 
 app.get( '/', function ( req, res ) {

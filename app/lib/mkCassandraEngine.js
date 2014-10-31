@@ -1,8 +1,14 @@
 /* jshint -W030 */
-if (typeof define !== 'function') { var define = require('amdefine')(module); }
+// Defines a module that works in CommonJS and AMD: https://github.com/umdjs/umd/blob/master/nodeAdapter.js
+if ( typeof module === 'object' && typeof define !== 'function' ) {
+    var define = function ( factory ) {
+        module.exports = factory( require, exports, module );
+    };
+}
 
-define(['./mkUtils'], function (Utils) {
+define( function ( require, exports, module ) {
     // DB client: https://github.com/jorgebay/node-cassandra-cql
+    var Utils = require( './mkUtils.js' );
 
     var MkCassandraEngine = function (client) {
         var DEBUG = true;

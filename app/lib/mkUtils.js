@@ -1,7 +1,12 @@
 /* jshint -W030 */
-if (typeof define !== 'function') { var define = require('amdefine')(module); }
+// Defines a module that works in CommonJS and AMD: https://github.com/umdjs/umd/blob/master/nodeAdapter.js
+if ( typeof module === 'object' && typeof define !== 'function' ) {
+    var define = function ( factory ) {
+        module.exports = factory( require, exports, module );
+    };
+}
 
-define([], function() {
+define( function () {
 
     // Polyfill for Object.keys
     Object.keys=Object.keys||function(o,k,r){r=[];for(k in o)r.hasOwnProperty.call(o,k)&&r.push(k);return r;};

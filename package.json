@@ -2,14 +2,25 @@
   "name": "mystik-dao",
   "version": "0.0.2",
   "author": "Duc Nguyen <ducjava@gmail.com>",
-  "keywords": ["dao", "engine", "db", "database", "dbms", "odm", "data", "datastore", "query", "nosql", "orm"],
+  "keywords": [
+    "dao",
+    "engine",
+    "db",
+    "database",
+    "dbms",
+    "odm",
+    "data",
+    "datastore",
+    "query",
+    "nosql",
+    "orm"
+  ],
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/ngduc/mystik.git"
   },
   "dependencies": {
-    "amdefine": "~0.1.0",
     "async": "~0.2.10",
     "bson": "^0.2.15",
     "express": "~3.4.8",
@@ -19,7 +30,6 @@
     "node-cassandra-cql": "~0.4.3",
     "q": "^1.0.1",
     "redis": "~0.10.1",
-    "requirejs": "~2.1.11",
     "validator": "~3.4.0"
   },
   "scripts": {

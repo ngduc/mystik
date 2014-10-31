@@ -20,11 +20,10 @@ It also allows using the same query syntax on both client and server side to get
 This is a very basic NodeJS example. Prepare DB connection:
 
 ```
-    var MkCassandraEngine = require('lib/mkCassandraEngine.js');
-    var MkTable = require('lib/mkTable.js');
+    var engine = new require( 'lib/mkMongoEngine' )( db ),
+        MkTable = require( 'lib/mkTable' );
 
-    var engine = new MkCassandraEngine(dbClient);
-    var Users = new MkTable(engine, 'users');
+    var Users = new MkTable(engine, 'users');   // you should have 'users' table/schema defined.
 ```
 
 Do some queries and updating data on [users] table:
@@ -48,6 +47,8 @@ See more interface methods in [mkTable.js](app/lib/mkTable.js)
 ### Client Side
 
 From client side, you can use MkRestEngine to make call to "APIs" (NodeJS) which in turn will query database and return JSON data.
+
+The query syntax is the same as back end.
 
 See [this example](app/index.html)
 

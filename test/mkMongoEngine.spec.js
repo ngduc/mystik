@@ -1,7 +1,7 @@
 // run test: jasmine-node --forceexit ./test/mkMongoEngine.spec.js
 
 var mongoose = require( 'mongoose' );
-var dbClient = mongoose.connect( 'mongodb://localhost/MystikTest' );
+var db = mongoose.connect( 'mongodb://localhost/unit_test_mongo' );
 
 var UserSchema = new mongoose.Schema( {
     uid: String,
@@ -11,19 +11,16 @@ var UserSchema = new mongoose.Schema( {
     age: Number,
     date: { type: Date, default: Date.now }
 } );
-dbClient.model( 'users', UserSchema );    // collection "users" will be created.
+db.model( 'users', UserSchema );    // collection "users" will be created.
 
 
-var MkUtils = require( '../app/lib/mkUtils.js' );
-var MkMongoEngine = require( '../app/lib/mkMongoEngine.js' );
-var MkTable = require( '../app/lib/mkTable.js' );
-
+var MkUtils = require( '../app/lib/mkUtils.js' ),
+    engine = new require( '../app/lib/mkMongoEngine' )( db ),
+    MkTable = require( '../app/lib/mkTable' );
 
 var beforeAll = function(fn) { it( '[beforeAll]', fn);}, afterAll = function(fn) { it( '[afterAll]', fn);}; // goo.gl/IhV41V
 
 describe( 'MongoDB Engine', function () {
-
-    var engine = new MkMongoEngine( dbClient );
     var Users = new MkTable( engine, 'users' );
 
     beforeAll( function( done ) {
