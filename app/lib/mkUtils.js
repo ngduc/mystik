@@ -217,10 +217,10 @@ define( function () {
             if ( typeof deferOrCallback === 'function' ) {
                 deferOrCallback( err, res );
             } else {
-                if ( err == null || err.error == null ) {
+                if ( err == null || (typeof err === 'object' && err.error == null) ) {
                     deferOrCallback.resolve( res );
                 } else {
-                    deferOrCallback.reject( new Error( err ) );
+                    deferOrCallback.reject( err );
                 }
             }
         },

@@ -26,21 +26,29 @@ define( function ( require, exports, module ) {
                 }
 
                 var url = _ver + '/' + table + tableParams + '?' + $.param( urlParams );
-                var ajaxObj = { type: type, url: url, data: JSON.stringify( data ), contentType: 'application/json' };
-                if ( ajaxObj.data === '{}' ) {
-                    ajaxObj.data = '';
+                var ajaxObj = {
+                    type: type,
+                    url: url,
+                    contentType: 'application/json; charset=utf-8'
+                };
+                if ( data ) {
+                    ajaxObj.data = JSON.stringify( data );
+                    ajaxObj.dataType = 'json';
                 }
                 _ajax( ajaxObj )
-                    .done( function ( res ) {
+                    .done( function( res ) {
                         Utils.done( doneFn, null, res );
-                    } );
+                    } )
+                    .fail( function( xhr, status, error ) {
+                        Utils.done( doneFn, xhr.responseText, null );
+                    });
                 return ( doneFn && doneFn.promise ? doneFn.promise : {} );
             },
             find: function ( table, urlParams, callback ) {
-                return this.request( table, 'GET', urlParams, {}, callback );
+                return this.request( table, 'GET', urlParams, null, callback );
             },
             findAll: function ( table, callback ) {
-                return this.request( table, 'GET', {}, {}, callback );
+                return this.request( table, 'GET', {}, null, callback );
             },
             insert: function ( table, obj, callback ) {
                 return this.request( table, 'POST', {}, obj, callback );
@@ -51,7 +59,7 @@ define( function ( require, exports, module ) {
                 return this.request( table, 'PUT', urlParams, params, callback );
             },
             delete: function ( table, urlParams, callback ) {
-                return this.request( table, 'DELETE', urlParams, {}, callback );
+                return this.request( table, 'DELETE', urlParams, null, callback );
             }
         };
     };
