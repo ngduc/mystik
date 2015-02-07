@@ -1,9 +1,13 @@
-var async = require( 'async' );
-var express = require( 'express' );
-var app = express();
+var async = require( 'async' ),
+    express = require( 'express' );
+
+var app = express(),
+    bodyParser = require('body-parser');
 app.use( express.static( __dirname ) );
-app.use( express.urlencoded() );
-app.use( express.json() );
+app.use( bodyParser.json() );
+app.use( bodyParser.urlencoded( {
+    extended: true
+} ) );
 
 // --- Test with Cassandra Engine:
 //var cql = require( 'node-cassandra-cql' );

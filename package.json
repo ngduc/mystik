@@ -1,6 +1,6 @@
 {
   "name": "mystik-dao",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "author": "Duc Nguyen <ducjava@gmail.com>",
   "keywords": [
     "dao",
@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "async": "^0.9.0",
+    "body-parser": "^1.11.0",
     "express": "^5.0.0-alpha.1",
     "hiredis": "^0.1.17",
     "jasmine-node": "^2.0.0",
