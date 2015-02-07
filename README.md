@@ -11,6 +11,8 @@ It also allows using the same query syntax on both client and server side to get
 ## Install
 
 ```sh
+    $ npm install mystik-dao --save
+OR
     $ git clone https://github.com/ngduc/mystik.git
     $ npm install
 ```

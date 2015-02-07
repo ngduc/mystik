@@ -1,12 +1,13 @@
 {
   "name": "mystik-dao",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "author": "Duc Nguyen <ducjava@gmail.com>",
   "keywords": [
     "dao",
     "engine",
     "db",
     "database",
+    "interface",
     "dbms",
     "odm",
     "data",
@@ -21,23 +22,21 @@
     "url": "https://github.com/ngduc/mystik.git"
   },
   "dependencies": {
-    "async": "~0.2.10",
-    "bson": "^0.2.15",
-    "express": "~3.4.8",
-    "hiredis": "~0.1.16",
-    "jasmine-node": "~1.13.1",
-    "mongoose": "^3.8.17",
-    "node-cassandra-cql": "~0.4.3",
-    "q": "^1.0.1",
-    "redis": "~0.10.1",
-    "validator": "~3.4.0"
+    "async": "^0.9.0",
+    "express": "^5.0.0-alpha.1",
+    "hiredis": "^0.1.17",
+    "jasmine-node": "^2.0.0",
+    "mongoose": "^4.0.0-rc1",
+    "node-cassandra-cql": "^0.5.0",
+    "q": "^2.0.3",
+    "redis": "^0.12.1"
   },
   "scripts": {
     "test": "jasmine-node --forceexit ./test/"
   },
   "devDependencies": {
-    "grunt": "~0.4.2",
-    "grunt-contrib-jshint": "~0.6.0",
-    "shelljs": "~0.2.6"
+    "grunt": "*",
+    "grunt-contrib-jshint": "*",
+    "shelljs": "*"
   }
 }
