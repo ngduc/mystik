@@ -17,6 +17,16 @@ OR
     $ npm install
 ```
 
+## Demo
+
+The Demo can be run to demonstrate client side APIs for CRUD.
+
+Start your local MongoDB for the demo, then launch the demo server and test at: http://localhost:3000
+
+```sh
+    $ node mystik/app/server.js
+```
+
 ## Usage
 
 This is a very basic NodeJS example. Prepare DB connection:
@@ -92,13 +102,6 @@ Make sure you have Database installed and running. To run unit tests:
 
     # to stop the jasmine-node process when it is finished, use this:
     $ jasmine-node --forceexit ./test/
-```
-
-The Demo can be run to demonstrate client side APIs for CRUD: (require MongoDB or Cassandra DB)
-
-```sh
-    # start the Demo on port 3000 - http://localhost:3000
-    $ node app/server.js
 ```
 
 ## Dependencies

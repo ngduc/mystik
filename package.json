@@ -33,7 +33,7 @@
     "redis": "^0.12.1"
   },
   "scripts": {
-    "test": "jasmine-node --forceexit ./test/"
+    "test": "jasmine-node ./test/"
   },
   "devDependencies": {
     "grunt": "*",
